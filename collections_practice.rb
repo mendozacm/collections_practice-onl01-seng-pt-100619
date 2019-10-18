@@ -1,103 +1,119 @@
-def swap_elements(array)
-  array[1..2] = array[1..2].sort do |a,b|
-    if a==b || a<b || a>b 
-      1
-    end
-  end
+def sort_array_asc (array)
+  array.sort
+end
+
+
+
+def sort_array_desc (array)
+  array.sort {|x,y| y <=> x }
+end
+
+
+
+def swap_elements (array)
+  array[1], array[2] = array[2], array[1]
   array
 end
 
-test_array = [1,2,3,4]
-string_test = ["blake", "ashley", "scott"]
-#swap_elements(test_array)
 
-def swap_elements_from_to(array, index, new_index)
-  array[index], array[new_index] = array[new_index], array[index]
-  return array
+
+def reverse_array (array)
+  array.reverse
 end
 
-describe 'swap_elements_from_to' do
-  it 'swaps elements and allows you to specify the index of the element you would like to move to a new index' do
-    expect(swap_elements_from_to(["one", "two", "three"], 2, 1)).to eq(["one", "three", "two"])
+
+
+def kesha_maker (array)
+  array.collect do |element|
+    element[2] = "$"
+    element
   end
 end
 
-############################################
 
 
-
-
-
-
-def kesha_maker(array)
-  return_array = []
-  array.each do |string|
-    string[3] = "$"
-    return_array << string
-  end
-  return_array
-end
-
-def find_a(array)
-  array.select do |string|
-    string.start_with?("a")
-  end
-end
-
-#a_array = ["apple","bake","ceaser","avocado"]
-#find_a(a_array)
-
-def sum_array(array)
-  #Advanced: Try using the .inject method here.
-  #(5..10).inject {|sum, n| sum + n }    
-  sum = 0
-  array. each do |number|
-    if number.is_a? Integer
-      sum += number
+def greater_and_less_than_10 (array)
+  hash = {
+    "greater_than_10" => [],
+    "less_than_10" => []
+  }
+  array.each do |number|
+    if number > 10 
+      hash["greater_than_10"] << number 
+    else
+      hash["less_than_10"] << number
     end
   end
-  sum
+  hash
 end
 
-def sum_array_inject(array)
-    array.inject do |sum,number| 
-        sum + number
+
+
+def find_winners (hash)
+  winners = []
+  hash.each do |name, status| 
+    winners << name if status == "winner"
+  end
+  winners
+end
+
+
+
+def find_a (array)
+  array.select do |word|
+    word.chr == "a"
+  end
+end
+
+
+
+def sum_array (array)
+  array.inject do |sum, num|
+    sum + num
+  end
+end
+
+
+
+def add_s (array)
+  array.collect.with_index do |word, index|
+    if index == 1 
+      word 
+    else 
+      word + "s"
     end
-end
-
-number_array =[0,1.07,2,3,4,5.2,6]
-#sum_array(number_array)
-
-#puts number_array.inject {|sum, n| sum + n}
-#sum_array_inject(number_array)
-
-def add_s(array)
-  #Build a method that adds an "s" to each word in the array except for the second element in the array ("feet" is already plural).
-  return_array = []
-      array.each_with_index do |word,index|
-        if index != 1 
-          word = word + "s"
-        end
-        return_array << word 
-  end
-  
-  return_array
-end
-
-def add_s_collect(array)
-      array.each_with_index.collect do |word,index|
-        if index != 1 
-          word = word + "s"
-        else
-          word = word
-        end
   end
 end
 
-#s_word_array = ["hand","feet", "knee", "table"]
-#add_s_collect(s_word_array)
+
+
+def count_words (words)
+  story_count = Hash.new
+
+  words.split.each do |word|
+    if story_count.include?(word)
+      story_count[word] = story_count[word] + 1
+    else
+      story_count[word] = 1
+    end
+  end
+
+  story_count
+end
 
 
 
+def organize_songs_by_artist (tracks)
+  hash = {}
+  tracks.each do |name|
+    artist = name.split(" - ")[0]
+    trackname = name.split(" - ")[1]
 
-
+    if hash.include?(artist)
+      hash[artist] << trackname
+    else
+      hash[artist] = [] << trackname
+    end
+  end
+  hash
+end 
